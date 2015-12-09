@@ -1,2 +1,2 @@
-# silex-config-service-provider
-A Silex Configuration Service Provider
+# Silex Configuration Service Provider
+[![Build Status](https://travis-ci.org/kabudu/silex-config-service-provider.svg)](https://travis-ci.org/kabudu/silex-config-service-provider)
