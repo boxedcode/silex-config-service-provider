@@ -1,0 +1,24 @@
+{
+  "name": "boxedcode/silex-config-service-provider",
+  "type": "library",
+  "description": "A Silex Configuration Service Provider (more on silex: http://silex.sensiolabs.org/)",
+  "authors": [
+    {
+      "name": "Kamba Abudu",
+      "email": "kabudu@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "symfony/yaml": "2.*",
+    "silex/silex": ">=2.0.x-dev"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "4.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "BoxedCode\\Silex\\Configuration\\": ["src/", "tests/"]
+    }
+  }
+}

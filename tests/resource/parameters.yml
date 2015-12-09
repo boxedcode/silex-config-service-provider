@@ -1,0 +1,7 @@
+swiftmailer:
+    host: smtp.example.com
+    port: 999
+    username: test
+    password: user
+    encryption: false
+    auth_mode: ~

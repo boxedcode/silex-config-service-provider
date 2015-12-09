@@ -1,0 +1,6 @@
+application:
+    name: Test Application
+    defaults:
+        page_title: Welcome to Test Application
+        page_description: Welcome to Test Application
+    domain: example.com
