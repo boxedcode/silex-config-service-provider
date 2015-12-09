@@ -139,7 +139,12 @@ class ConfigServiceProvider implements ServiceProviderInterface
             $file = $fileInfo->getRealPath();
             $class = sprintf('\BoxedCode\Silex\Configuration\Parser\%s', $this->getClassFromFile($file));
             $object = new $class();
-            $this->parsers[] = $object;
+            
+            if ($object->requiresSource()) {
+                $this->parsers['sourced'][] = $object;
+            } else {
+                $this->parsers['unsourced'][] = $object;
+            }
         }
     }
 
