@@ -137,7 +137,8 @@ class ConfigServiceProvider implements ServiceProviderInterface
 
         foreach ($fileSystemIterator as $fileInfo) {
             $file = $fileInfo->getRealPath();
-            $object = new $file();
+            $class = sprintf('\BoxedCode\Silex\Configuration\Parser\%s', $this->getClassFromFile($file));
+            $object = new $class();
             $this->parsers[] = $object;
         }
     }
@@ -152,6 +153,31 @@ class ConfigServiceProvider implements ServiceProviderInterface
         foreach ($this->parsers['sourced'] as $parser) {
             if ($parser->supports($source)) {
                 $this->configuration = array_merge($this->configuration, $parser->parse($source));
+            }
+        }
+    }
+
+    /**
+     * Extract a class name from a file
+     *
+     * @param $file
+     * @return mixed
+     */
+    private function getClassFromFile($file)
+    {
+        $contents = file_get_contents($file);
+        $tokens = token_get_all($contents);
+        $class_token = false;
+
+        foreach ($tokens as $token) {
+            if (is_array($token)) {
+                if (T_CLASS == $token[0]) {
+                    $class_token = true;
+                } else {
+                    if ($class_token && T_STRING == $token[0]) {
+                        return $token[1];
+                    }
+                }
             }
         }
     }
