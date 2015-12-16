@@ -73,8 +73,8 @@ class Yaml implements ParserInterface
                 foreach ($value as $resource) {
                     $basePath = str_replace(basename($source), '', $source);
                     $parser = new Yaml();
-                    $this->configuration = array_merge($configuration,
-                        $parser->parse($basePath . $resource['resource']));
+                    $this->configuration = array_merge($parser->parse($basePath . $resource['resource']),
+                        $configuration);
                 }
                 unset($configuration['imports']);
             }
