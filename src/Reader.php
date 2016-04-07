@@ -41,4 +41,17 @@ class Reader implements ReaderInterface
         return $this->configuration[$key];
     }
 
+    /**
+     * Set the configuration for this reader
+     *
+     * @param array $configuration
+     * @return mixed
+     */
+    public function setConfiguration(array $configuration)
+    {
+        $this->configuration = $configuration;
+
+        return $this;
+    }
+
 }

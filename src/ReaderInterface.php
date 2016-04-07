@@ -16,4 +16,12 @@ interface ReaderInterface
      * @return mixed
      */
     public function find($key);
+
+    /**
+     * Set the configuration for this reader
+     *
+     * @param array $configuration
+     * @return mixed
+     */
+    public function setConfiguration(array $configuration);
 }

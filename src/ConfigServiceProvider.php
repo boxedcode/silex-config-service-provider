@@ -37,6 +37,11 @@ class ConfigServiceProvider implements ServiceProviderInterface
      */
     protected $configuration = [];
 
+    /**
+     * @var ReaderInterface
+     */
+    protected $reader;
+
 
     /**
      * ConfigServiceProvider constructor.
@@ -93,6 +98,21 @@ class ConfigServiceProvider implements ServiceProviderInterface
     }
 
     /**
+     * Add a configuration source
+     *
+     * @param mixed $source
+     * @param null|ParserInterface $parser
+     */
+    public function addSource($source, $parser = null)
+    {
+        if (null !== $parser) {
+            $this->parsers['sourced'][] = $parser;
+        }
+        $this->process($source);
+        $this->reader->setConfiguration($this->configuration);
+    }
+
+    /**
      * Load parsers which require a source
      */
     protected function loadSourcedParsers()
@@ -125,7 +145,8 @@ class ConfigServiceProvider implements ServiceProviderInterface
      */
     protected function initialiseReader(Container $pimple)
     {
-        $pimple['config.reader'] = new Reader($this->configuration);
+        $this->reader = new Reader($this->configuration);
+        $pimple['config.reader'] = $this->reader;
     }
 
     /**
@@ -139,7 +160,7 @@ class ConfigServiceProvider implements ServiceProviderInterface
             $file = $fileInfo->getRealPath();
             $class = sprintf('\BoxedCode\Silex\Configuration\Parser\%s', $this->getClassFromFile($file));
             $object = new $class();
-            
+
             if ($object->requiresSource()) {
                 $this->parsers['sourced'][] = $object;
             } else {
