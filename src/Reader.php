@@ -42,6 +42,21 @@ class Reader implements ReaderInterface
     }
 
     /**
+     * Determine if a configuration key exists
+     *
+     * @param string $key
+     * @return boolean
+     */
+    public function has($key)
+    {
+        if (!array_key_exists($key, $this->configuration)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Set the configuration for this reader
      *
      * @param array $configuration

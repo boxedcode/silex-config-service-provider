@@ -18,6 +18,14 @@ interface ReaderInterface
     public function find($key);
 
     /**
+     * Determine if a configuration key exists
+     *
+     * @param string $key
+     * @return boolean
+     */
+    public function has($key);
+
+    /**
      * Set the configuration for this reader
      *
      * @param array $configuration

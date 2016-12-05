@@ -40,4 +40,13 @@ class ReaderTest extends \PHPUnit_Framework_TestCase
         $reader = new Reader([]);
         $reader->find('test');
     }
+
+    /**
+     * Test that the "has" method behaves as expected
+     */
+    public function testHas()
+    {
+        $reader = new Reader([]);
+        $this->assertFalse($reader->has('foo'));
+    }
 }
