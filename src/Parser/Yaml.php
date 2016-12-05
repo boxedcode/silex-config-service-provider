@@ -26,7 +26,7 @@ class Yaml implements ParserInterface
      */
     public function supports($source)
     {
-        if (file_exists($source) && ('yml' === pathinfo($source, PATHINFO_EXTENSION))) {
+        if (is_string($source) && file_exists($source) && ('yml' === pathinfo($source, PATHINFO_EXTENSION))) {
             return true;
         }
 
