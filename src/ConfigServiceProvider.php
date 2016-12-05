@@ -67,9 +67,14 @@ class ConfigServiceProvider implements ServiceProviderInterface
      */
     public function register(Container $pimple)
     {
+        // add a reference to self
+        $pimple['config.processor'] = $this;
+
+        // process initial configuration
         $this->loadSourcedParsers();
         $this->loadUnsourcedParsers();
 
+        // initialise the reader
         $this->initialiseReader($pimple);
     }
 
