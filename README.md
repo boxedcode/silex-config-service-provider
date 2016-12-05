@@ -6,3 +6,4 @@ It can support an unlimited number of configuration sources and supports configu
 
 * A Yaml file parser (with support for import declarations)
 * An environment variable parser
+* An array flatten parser
