@@ -69,4 +69,47 @@ class ArrayFlattenTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($flattenedConfiguration, $this->parser->parse($configuration));
     }
+
+    /**
+     * Test that the compressed tree is retained
+     */
+    public function testRetainsCompressedTree()
+    {
+        $configuration = [
+            'application' => [
+                'name' => 'Test Application',
+                'location' => 'Europe'
+            ],
+            'image' => [
+                'dimensions' => [
+                    'thumb' => '60x60',
+                    'large' => '600x600',
+                ]
+            ]
+        ];
+
+        $flattenedConfiguration = [
+            'application' => [
+                'name' => 'Test Application',
+                'location' => 'Europe'
+            ],
+            'application.name' => 'Test Application',
+            'application.location' => 'Europe',
+            'image' => [
+                'dimensions' => [
+                    'thumb' => '60x60',
+                    'large' => '600x600',
+                ]
+            ],
+            'image.dimensions' => [
+                'thumb' => '60x60',
+                'large' => '600x600',
+            ],
+            'image.dimensions.thumb' => '60x60',
+            'image.dimensions.large' => '600x600',
+        ];
+
+        $this->parser->retainCompressedTree();
+        $this->assertEquals($flattenedConfiguration, $this->parser->parse($configuration));
+    }
 }

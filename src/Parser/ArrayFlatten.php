@@ -12,6 +12,13 @@ use BoxedCode\Silex\Configuration\ParserInterface;
 class ArrayFlatten implements ParserInterface
 {
     /**
+     * Should the flattened version retain a copy of the compressed tree config?
+     *
+     * @var bool
+     */
+    protected $shouldRetainCompressedTree = false;
+
+    /**
      * Can this parser support a specific configuration source
      *
      * @param $source
@@ -48,6 +55,16 @@ class ArrayFlatten implements ParserInterface
     }
 
     /**
+     * The flattened version should retain a copy of the compressed tree config?
+     */
+    public function retainCompressedTree()
+    {
+        $this->shouldRetainCompressedTree = true;
+
+        return $this;
+    }
+
+    /**
      * Flatten an array
      *
      * @param $source
@@ -62,6 +79,9 @@ class ArrayFlatten implements ParserInterface
             $newKey = $prefix . (empty($prefix) ? '' : '.') . $key;
 
             if (is_array($value)) {
+                if ($this->shouldRetainCompressedTree) {
+                    $result[$newKey] = $value;
+                }
                 $result = array_merge($result, $this->flattenArray($value, $newKey));
             } else {
                 $result[$newKey] = $value;
