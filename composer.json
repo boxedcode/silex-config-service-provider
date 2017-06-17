@@ -10,7 +10,7 @@
   ],
   "require": {
     "php": ">=5.6.0",
-    "symfony/yaml": "v3.1.2",
+    "symfony/yaml": "v3.*",
     "silex/silex": ">=2.0.0"
   },
   "require-dev": {
